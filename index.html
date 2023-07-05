@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16桁の英数字抽出ツール</title>
+</head>
+<body>
+    <h1>16桁の英数字抽出ツール</h1>
+    <form onsubmit="return false;">
+        <label for="inputText">入力テキスト:</label>
+        <textarea id="inputText" cols="50" rows="5" placeholder="テキストを入力してください..."></textarea>
+        <br>
+        <button onclick="extract16Digits()">抽出</button>
+    </form>
+    <hr>
+    <label for="outputText">出力テキスト:</label>
+    <textarea id="outputText" cols="50" rows="5" readonly></textarea>
+
+    <script>
+        function extract16Digits() {
+            const inputText = document.getElementById('inputText').value;
+            const outputText = document.getElementById('outputText');
+
+            const stringWithoutSpaces = inputText.replace(/\s+/g, '');
+            const regex = /([0-9a-zA-Z]{16})/g;
+            let matches = stringWithoutSpaces.match(regex);
+
+            if (matches) {
+                matches = matches.filter(match => /[a-zA-Z]/.test(match));
+                const result = matches.join('\n');
+                outputText.value = result;
+            } else {
+                outputText.value = '16桁の英数字が見つかりませんでした。';
+            }
+        }
+    </script>
+</body>
+</html>
